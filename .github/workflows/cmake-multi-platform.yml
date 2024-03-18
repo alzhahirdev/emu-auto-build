@@ -56,7 +56,8 @@ jobs:
               curl -OL https://github.com/KhronosGroup/glslang/releases/download/main-tot/glslang-master-windows-Release.zip && 
               unzip glslang-master-windows-Release.zip -d ${{ github.workspace }}\glslang && 
               cd ~ && 
-              export PATH=$PATH:"${{ github.workspace }}\glslang\bin"
+              export PATH=$PATH:"${{ github.workspace }}/glslang/bin/" && 
+              echo $PATH
          else
               echo "$RUNNER_OS not supported"
               exit 1
