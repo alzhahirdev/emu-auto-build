@@ -49,9 +49,10 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Setup glslang
+      shell: bash
       run: |
         git clone https://github.com/Microsoft/vcpkg.git && 
-        cd vcpkg && 
+        cd ./vcpkg && 
         ./bootstrap-vcpkg.sh && 
         ./vcpkg integrate install && 
         ./vcpkg install glslang && 
