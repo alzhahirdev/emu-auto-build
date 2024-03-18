@@ -53,7 +53,7 @@ jobs:
         if [ "$RUNNER_OS" == "Linux" ]; then
               sudo apt install autoconf build-essential catch2 cmake git glslang-tools libasound2 libavcodec-dev libavfilter-dev libboost-context-dev libfmt-dev libglu1-mesa-dev libhidapi-dev liblz4-dev libmbedtls-dev libpulse-dev libssl-dev libswscale-dev libtool libudev-dev libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-render-util0 libxcb-xinerama0 libxcb-xkb1 libxext-dev libxkbcommon-x11-0 libzstd-dev mesa-common-dev nasm ninja-build nlohmann-json3-dev qt6-base-dev qt6-base-private-dev qt6-multimedia-dev qt6-webengine-dev
          elif [ "$RUNNER_OS" == "Windows" ]; then
-              curl https://github.com/KhronosGroup/glslang/releases/download/main-tot/glslang-master-windows-Release.zip -L -o "${{ github.workspace }}\dls\glslang.zip" && 
+              curl -L https://github.com/KhronosGroup/glslang/releases/download/main-tot/glslang-master-windows-Release.zip > ${{ github.workspace }}\dls\glslang.zip && 
               unzip "${{ github.workspace }}\dls\glslang.zip" -d "${{ github.workspace }}\glslang" && 
               cd ~ && 
               export PATH=$PATH:"${{ github.workspace }}\glslang\bin"
