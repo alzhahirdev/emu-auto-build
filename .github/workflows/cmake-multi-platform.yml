@@ -47,11 +47,20 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
+    - name: Detect OS (Windows)
+      if: matrix.os == "windows-latest"
+      env:
+        os_name: "windows"
+    - name: Detect OS (Ubuntu)
+      if: matrix.os == "ubuntu-latest"
+      env:
+        os_name: "linux"
+
     - name: Setup glslang
       shell: bash
       run: |
-        curl https://github.com/KhronosGroup/glslang/releases/download/main-tot/glslang-master-windows-Release.zip -o ./glslang.zip && 
-        unzip ./glslang.zip -d ${{ github.workspace }}/glslang && 
+        curl https://github.com/KhronosGroup/glslang/releases/download/main-tot/glslang-master-${{ os_name }}-Release.zip -o ${{ github.workspace }}/dls/glslang.zip && 
+        unzip ${{ github.workspace }}/dls/glslang.zip -d ${{ github.workspace }}/glslang && 
         cd ~ && 
         export PATH=$PATH:"${{ github.workspace }}/glslang/bin/"
 
