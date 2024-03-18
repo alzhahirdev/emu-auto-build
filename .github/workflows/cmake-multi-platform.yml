@@ -54,9 +54,9 @@ jobs:
               sudo apt install autoconf build-essential catch2 cmake git glslang-tools libasound2 libavcodec-dev libavfilter-dev libboost-context-dev libfmt-dev libglu1-mesa-dev libhidapi-dev liblz4-dev libmbedtls-dev libpulse-dev libssl-dev libswscale-dev libtool libudev-dev libxcb-icccm4 libxcb-image0 libxcb-keysyms1 libxcb-render-util0 libxcb-xinerama0 libxcb-xkb1 libxext-dev libxkbcommon-x11-0 libzstd-dev mesa-common-dev nasm ninja-build nlohmann-json3-dev qt6-base-dev qt6-base-private-dev qt6-multimedia-dev qt6-webengine-dev
          elif [ "$RUNNER_OS" == "Windows" ]; then
               curl -OL https://github.com/KhronosGroup/glslang/releases/download/main-tot/glslang-master-windows-Release.zip && 
-              unzip glslang-master-windows-Release.zip -d ${{ github.workspace }}\glslang && 
+              unzip glslang-master-windows-Release.zip -d D:\glslang && 
               cd ~ && 
-              export PATH=$PATH:"${{ github.workspace }}/glslang/bin/" && 
+              export PATH=$PATH:"/d/glslang/bin/" && 
               echo $PATH
          else
               echo "$RUNNER_OS not supported"
@@ -77,6 +77,8 @@ jobs:
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
       run: >
+        echo $PATH && 
+        export PATH=$PATH:"/d/glslang/bin/" && 
         cmake -B ${{ steps.strings.outputs.build-output-dir }}
         -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }}
         -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
