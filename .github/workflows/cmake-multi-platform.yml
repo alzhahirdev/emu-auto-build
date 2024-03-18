@@ -4,10 +4,10 @@ name: CMake on multiple platforms
 
 on:
   workflow_dispatch:
-  push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+#  push:
+#    branches: [ "main" ]
+#  pull_request:
+#    branches: [ "main" ]
 
 jobs:
   build:
@@ -32,18 +32,17 @@ jobs:
             c_compiler: cl
             cpp_compiler: cl
           - os: ubuntu-latest
-            c_compiler: gcc
-            cpp_compiler: g++
-          - os: ubuntu-latest
-            c_compiler: clang
-            cpp_compiler: clang++
+            c_compiler: cl
+            cpp_compiler: cl
         exclude:
           - os: windows-latest
             c_compiler: gcc
           - os: windows-latest
             c_compiler: clang
           - os: ubuntu-latest
-            c_compiler: cl
+            c_compiler: gcc
+          - os: ubuntu-latest
+            cpp_compiler: clang++
 
     steps:
     - uses: actions/checkout@v3
@@ -51,12 +50,10 @@ jobs:
     - name: Setup glslang
       shell: bash
       run: |
-        git clone https://github.com/Microsoft/vcpkg.git && 
-        cd ./vcpkg && 
-        ./bootstrap-vcpkg.sh && 
-        ./vcpkg integrate install && 
-        ./vcpkg install glslang && 
-        cd ~
+        curl https://github.com/KhronosGroup/glslang/releases/download/main-tot/glslang-master-windows-Release.zip -o ./glslang.zip && 
+        unzip ./glslang.zip -d ${{ github.workspace }}/glslang && 
+        cd ~ && 
+        export PATH=$PATH:"${{ github.workspace }}/glslang/bin/"
 
     - name: Get Suyu source
       run: git clone --recursive https://github.com/suyu-emu/suyu ./suyu && mkdir ./suyu/build
