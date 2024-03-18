@@ -49,13 +49,13 @@ jobs:
     - uses: actions/checkout@v3
 
     - name: Setup glslang
-      run: >
+      run: |
         git clone https://github.com/Microsoft/vcpkg.git && 
         cd vcpkg && 
         ./bootstrap-vcpkg.sh && 
         ./vcpkg integrate install && 
         ./vcpkg install glslang && 
-        cd
+        cd ~
 
     - name: Get Suyu source
       run: git clone --recursive https://github.com/suyu-emu/suyu ./suyu && mkdir ./suyu/build
