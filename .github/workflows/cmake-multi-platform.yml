@@ -80,6 +80,7 @@ jobs:
 #        $env:path += ";D:\glslang\bin\";
       run: >
         echo $env:path && 
+        [Environment]::SetEnvironmentVariable("Path",[Environment]::GetEnvironmentVariable("Path", [EnvironmentVariableTarget]::Machine) + ";D:\glslang\bin", [EnvironmentVariableTarget]::Machine) && 
         cmake -B ${{ steps.strings.outputs.build-output-dir }}
         -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }}
         -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
