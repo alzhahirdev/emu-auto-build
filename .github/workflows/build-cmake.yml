@@ -1,6 +1,6 @@
 # This starter workflow is for a CMake project running on multiple platforms. There is a different starter workflow if you just want a single platform.
 # See: https://github.com/actions/starter-workflows/blob/main/ci/cmake-single-platform.yml
-name: CMake on multiple platforms
+name: Build for x64
 
 on:
   workflow_dispatch:
@@ -62,11 +62,7 @@ jobs:
               echo "$RUNNER_OS not supported"
               exit 1
          fi
-
-    - name: Set dependencies Path
-      run: >
         
-
     - name: Get Suyu source
       run: git clone --recursive https://github.com/suyu-emu/suyu ./suyu && mkdir ./suyu/build
 
@@ -75,7 +71,8 @@ jobs:
       id: strings
       shell: bash
       run: |
-        echo "build-output-dir=${{ github.workspace }}/suyu/build" >> "$GITHUB_OUTPUT"
+        echo "build-output-dir=${{ github.workspace }}/suyu/build" >> "$GITHUB_OUTPUT" && 
+        echo "output-filename=release-${{ runner.os }}.zip" >> "$GITHUB_OUTPUT"
 
     - name: Configure CMake
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
@@ -93,10 +90,20 @@ jobs:
       # Build your program with the given configuration. Note that --config is needed because the default Windows generator is a multi-config generator (Visual Studio generator).
       run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }}
 
+    - name: Package Release
+      uses: thedoctor0/zip-release@0.7.5
+      id: package
+      with:
+        type: 'zip'
+        filename: '${{ steps.strings.outputs.output-filename }}'
+        directory: '${{ github.workspace }}'
+        path: '${{ steps.strings.outputs.build-output-dir }}'
+        exclusions: '*.git* /*node_modules/* .editorconfig'
+
     - uses: actions/upload-artifact@v4
       with:
         name: 'build-rel'
-        path: '${{ steps.strings.outputs.build-output-dir }}'
+        path: '${{ github.workspace }}/${{ steps.strings.outputs.output-filename }}'
         if-no-files-found: 'error'
 
     # - name: Test
