@@ -1,6 +1,6 @@
 # GitHub Actions build for an Emulator
 
-This repository contains the workflow to build a particular open source emulator. As of 19 March 2024, the emulator's repository is hosted on GitHub. This repository is not associated with the developers of said emulator in any way whatsoever. This repository is intended for educational purposes only, and all relevant credits are available below.
+This repository contains the workflow to build a particular open source emulator. As of 19 March 2024, the emulator's repository is hosted on GitHub and GitLab. This repository is not associated with the developers of said emulator in any way whatsoever. This repository is intended for educational purposes only, and all relevant credits are available below.
 
 > [!warning]
 > Do not run other people's code on your computer, unless you are sure and fully trust them.\
