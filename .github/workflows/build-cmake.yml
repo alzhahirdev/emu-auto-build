@@ -96,7 +96,7 @@ jobs:
       id: package
       with:
         type: 'zip'
-        filename: '${{ steps.strings.outputs.output-filename }}'
+        filename: '${{ github.workspace }}/${{ steps.strings.outputs.output-filename }}'
         directory: '${{ github.workspace }}'
         path: '${{ steps.strings.outputs.build-output-dir }}/bin/${{ matrix.build_type }}'
         exclusions: '*.git* /*node_modules/* .editorconfig'
