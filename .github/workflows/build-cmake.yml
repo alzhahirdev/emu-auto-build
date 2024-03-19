@@ -98,7 +98,7 @@ jobs:
         type: 'zip'
         filename: '${{ steps.strings.outputs.output-filename }}'
         directory: '${{ github.workspace }}'
-        path: '${{ steps.strings.outputs.build-output-dir }}/build/bin/${{ matrix.build_type }}'
+        path: '${{ steps.strings.outputs.build-output-dir }}/bin/${{ matrix.build_type }}'
         exclusions: '*.git* /*node_modules/* .editorconfig'
 
     - name: Release build
