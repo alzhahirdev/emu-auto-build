@@ -108,7 +108,7 @@ jobs:
         tag_name: 'b_${{ steps.strings.outputs.utc-time }}'
         make_latest: true
         body: 'Built on ${{ steps.strings.outputs.date }}. As a reminder, this build is UNTESTED and is NOT SUPPORTED by the official devs. No support will be given. Do not run untrusted binaries on your computer.'
-        files: '${{ github.workspace }}/${{ steps.strings.outputs.output-filename }}'
+        files: '${{ steps.strings.outputs.output-filename }}'
         fail_on_unmatched_files: true
         
     # - name: Test
